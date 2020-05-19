@@ -1,6 +1,7 @@
 from scrapy.http import FormRequest
 from scrapy import Request
 from scrapy.crawler import CrawlerProcess
+from veritas.variables import LOGIN, PASSWORD
 
 from veritas.items import VeritasItem
 
@@ -19,7 +20,7 @@ class LoginSpider(scrapy.Spider):
     def parse(self, response):
         return scrapy.FormRequest.from_response(
             response,
-            formdata={'log': 'koll44@gmail.com', 'pwd': 'bonham'},#, 'action': 'loginUser', 'nonce': '45e0196df6'},
+            formdata={'log': LOGIN, 'pwd': PASSWORD},#, 'action': 'loginUser', 'nonce': '45e0196df6'},
             callback=self.after_login 
         )
 
@@ -75,3 +76,5 @@ class LoginSpider(scrapy.Spider):
             item['image'] = lot.css(IMAGE_SELECTOR).get()
 
             yield item
+
+
